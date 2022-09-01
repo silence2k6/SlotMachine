@@ -7,7 +7,7 @@ namespace SlotMachine
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(UIMethods.showRandomSlotNumbers(DATAMethods.getRandomSlotNumbers));
+            InterfaceMethods.ShowRandomSlotNumbers();
             
 
             //int [] fillingSlotMachine = new int[9];
