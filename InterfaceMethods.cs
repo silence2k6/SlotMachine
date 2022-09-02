@@ -12,17 +12,19 @@ namespace SlotMachine
         {
             int [,] slotNumbers = LogicMethods.GetRandomSlotNumbers();
 
-            for (int i = 0; i < 3; i++)
+            int i = 0;
+
+            while (i < slotNumbers.GetLength(0))
             {
                 int j = 0;
-                Console.Write(slotNumbers[i, 0]);
-                j++;
 
-                while (j < 3)
+                while (j < slotNumbers.GetLength(1))
                 {
-                    Console.WriteLine(slotNumbers[0, j]);
+                    Console.Write(slotNumbers[i, j] + " ");
                     j++;
                 }
+                Console.WriteLine();
+                i++;
             }
         }
     }

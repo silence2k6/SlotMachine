@@ -13,18 +13,19 @@ namespace SlotMachine
             int[,] slotNumbers = new int[3, 3];
             Random randomNumber = new Random();
 
-            for (int i = 0; i < 3; i++)
+            int i = 0;
+
+            while (i < slotNumbers.GetLength(0))
             {
                 int j = 0;
-                slotNumbers[i, j] = randomNumber.Next(1,9);
-                j++;
 
-                while (j < 3)
+                while (j < slotNumbers.GetLength(1))
                 {
-                    slotNumbers[i, j] = randomNumber.Next(1,9);
+                    slotNumbers[i, j] = randomNumber.Next(1, 10);
                     j++;
-                }              
-            } 
+                }
+                i++;
+            }
             return slotNumbers;
         }
     }
