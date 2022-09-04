@@ -11,6 +11,9 @@ namespace SlotMachine
 
             InterfaceMethods.HowMuchLines();
 
+            InterfaceMethods.WhichLines();
+            //while schleife für jede Line erstellen und in Liste speichern
+
             InterfaceMethods.ShowRandomSlotNumbers();
         }
     }

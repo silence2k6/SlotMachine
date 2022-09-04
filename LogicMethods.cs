@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SlotMachine
 {
-    internal class LogicMethods
+    public static class LogicMethods
     {
-        static public int[,] GetRandomSlotNumbers()
+        public static int[,] GetRandomSlotNumbers()
         {
             int[,] slotNumbers = new int[3, 3];
             Random randomNumber = new Random();
