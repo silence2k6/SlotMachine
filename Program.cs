@@ -9,12 +9,17 @@ namespace SlotMachine
         {
             InterfaceMethods.GameIntro();
 
-            InterfaceMethods.HowMuchLines();
+            bool playAgain = true;
 
-            InterfaceMethods.WhichLines();
-            //while schleife für jede Line erstellen und in Liste speichern
+            while (playAgain == true)
+            {
+                int linesToPlay = InterfaceMethods.HowMuchLines();
 
-            InterfaceMethods.ShowRandomSlotNumbers();
+                List<int> lineVariantList = new List<int>(InterfaceMethods.WhichLines(linesToPlay));
+                break;
+
+                //InterfaceMethods.ShowRandomSlotNumbers();
+            }
         }
     }
 }

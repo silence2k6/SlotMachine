@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,12 +39,12 @@ namespace SlotMachine
             Console.WriteLine("- If you win 1 line, you will get 1,00 EUR");
             Console.WriteLine("- If you win 2 lines, you will get 3,00 EUR");
             Console.WriteLine("- If you win 3 Lines, you will get 5,00 EUR\n");
-            Console.WriteLine("You will start with a Credit of 20,00 EUR\n");
+            Console.WriteLine("You will start with a credit of 20,00 EUR\n");
         }
 
         public static int HowMuchLines()
         {
-            int chooseLinesToPlay = 0; ;
+            int chooseLinesToPlay = 0;
             bool validInput = false;
 
             while (validInput == false)
@@ -51,63 +52,46 @@ namespace SlotMachine
                 Console.Write("How much lines you want to play (max 8)?:\t");
                 validInput = int.TryParse(Console.ReadLine(), out chooseLinesToPlay);
 
+                //WENN LINE MEHR ALS 3 MAL GESPIELT WERDEN SOLL (GEHT NICHT!!!)
+
                 if (chooseLinesToPlay < 1 || chooseLinesToPlay > 8)
                 {
                     validInput = false;
                     Console.WriteLine("You have to play at least 1 line and maximum 8 lines!");                   
                 }
-                Console.WriteLine();
+                Console.WriteLine($"Your total costs for this wager will be {chooseLinesToPlay}EUR\n");
             }
             return chooseLinesToPlay;
         }
 
-        public static int WhichLines()
+        public static List<int> WhichLines(int linesToPlay)
         {
+            Console.Write($"How you want to play your lines?\npress (1)horizontal (2)vertikal (3)diagonal\n");
+            List<int> lineVariantList = new List<int>();
             int chooseLineVariant = 0;
-            bool validInput = false;
 
-            while (validInput == false)
+            while (chooseLineVariant < linesToPlay)
             {
-                int x = 1;
-                string lineVariant = "";
-                Console.Write($"How you want to play your {x}.line (press (1)horizontal (2)vertikal (3)diagonal)");
-                validInput = int.TryParse(Console.ReadLine(), out chooseLineVariant);
-                
-                if (chooseLineVariant == 1)
+                Console.Write($"\n{chooseLineVariant+1}.line:\t");
+                int choosenLineVariant = Convert.ToInt32(Console.ReadLine());
+                lineVariantList.Add(choosenLineVariant);
+
+                if (choosenLineVariant == 1)
                 {
-                    lineVariant = "horizintal";
+                    Console.Write("horizontal");
                 }
-                if (chooseLineVariant == 2)
+                if (choosenLineVariant == 2)
                 {
-                    lineVariant = "vertikal";
+                    Console.Write("vertikal");
                 }
-                if (chooseLineVariant == 3)
+                if (choosenLineVariant == 3)
                 {
-                    lineVariant = "diagonal";
+                    Console.Write("diagonal"); 
                 }
-                Console.WriteLine($"{x}.Line: {lineVariant}");
+                chooseLineVariant++;
             }
-            return chooseLineVariant;
-
-            //Console.WriteLine("Which lines you want to Play?");
-            //int lineVariant = 0;
-
-            //while (InterfaceMethods.HowMuchLines() > 0)
-            //{
-            //    int x = 1;
-            //    Console.WriteLine($"How you want to play your {x}.line (press (1)horizontal (2)vertikal (3)diagonal)");
-            //    //int lineVariant;
-            //    bool validInput = int.TryParse(Console.ReadLine(), out lineVariant);
-            //    Console.WriteLine($"{x}.Line: {lineVariant}");
-
-            //    if(lineVariant < 1 || lineVariant > 3 || validInput == false)
-            //    {
-            //        Console.WriteLine("Pls choose only between (1)horizontal (2)vertikal (3)diagonal");
-            //    }
-            //    x++;
-            //    //InterfaceMethods.HowMuchLines()--;               
-            //}
-            //return lineVariant;
+            Console.WriteLine("\n");
+            return lineVariantList;
         }
     }
 }
