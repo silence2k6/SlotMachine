@@ -19,6 +19,10 @@ namespace SlotMachine
                 break;
 
                 //InterfaceMethods.ShowRandomSlotNumbers();
+
+                //Geasmtguthaben zusammenrechnen und anzeigen
+                List<int> totalCredit = new List<int>();
+                totalCredit.Add(20);
             }
         }
     }

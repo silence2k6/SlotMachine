@@ -39,6 +39,7 @@ namespace SlotMachine
             Console.WriteLine("- If you win 1 line, you will get 1,00 EUR");
             Console.WriteLine("- If you win 2 lines, you will get 3,00 EUR");
             Console.WriteLine("- If you win 3 Lines, you will get 5,00 EUR\n");
+            Console.WriteLine("- If you win more than 3 Lines, you will double your invested wager\n");
             Console.WriteLine("You will start with a credit of 20,00 EUR\n");
         }
 
@@ -52,7 +53,7 @@ namespace SlotMachine
                 Console.Write("How much lines you want to play (max 8)?:\t");
                 validInput = int.TryParse(Console.ReadLine(), out chooseLinesToPlay);
 
-                //WENN LINE MEHR ALS 3 MAL GESPIELT WERDEN SOLL (GEHT NICHT!!!)
+                //WENN VARIANTE MEHR ALS 3 MAL GESPIELT WERDEN SOLL (DIAGONAL MAX. 2) = GEHT NICHT!!!
 
                 if (chooseLinesToPlay < 1 || chooseLinesToPlay > 8)
                 {
