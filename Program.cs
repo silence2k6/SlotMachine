@@ -10,20 +10,26 @@ namespace SlotMachine
             InterfaceMethods.GameIntro();
 
             bool playAgain = true;
+            List<int> totalCreditList = new List<int>();
+            totalCreditList.Add(100);
 
             while (playAgain == true)
             {
                 int linesToPlay = InterfaceMethods.HowMuchLines();
+                totalCreditList.Add(-linesToPlay);
 
                 List<int> lineVariantList = new List<int>(InterfaceMethods.WhichLines(linesToPlay));
                
                 int [,] slotNumbers = InterfaceMethods.ShowRandomSlotNumbers();
 
-                int wagerCredit = LogicMethods.WagerResult(lineVariantList, linesToPlay, slotNumbers);
+                List<int> wagerResultList = LogicMethods.WagerResult(lineVariantList, linesToPlay, slotNumbers);
+                int wagerCredit = wagerResultList.Sum();
 
-                //Geasmtguthaben zusammenrechnen und anzeigen
-                //List<int> totalCredit = new List<int>();
-                //totalCredit.Add(20);
+                InterfaceMethods.ShowWagerCredit(wagerCredit);
+
+                int totalCredit = wagerCredit + totalCreditList.Sum();
+
+                InterfaceMethods.ShowTotalCredit(totalCredit);
             }
         }
     }

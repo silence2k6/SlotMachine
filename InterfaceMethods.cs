@@ -37,11 +37,10 @@ namespace SlotMachine
             Console.WriteLine("- You will earn money when you find a line with 3 ident numbers");
             Console.WriteLine("- Therefore you can choose between horizontal, vertical and diagonal Lines");
             Console.WriteLine("- For each Line you want to play, you have to pay 1,00 EUR");
-            Console.WriteLine("- If you win 1 line, you will get 1,00 EUR");
-            Console.WriteLine("- If you win 2 lines, you will get 3,00 EUR");
-            Console.WriteLine("- If you win 3 Lines, you will get 5,00 EUR");
-            Console.WriteLine("- If you win more than 3 Lines, you will double your invested wager\n");
-            Console.WriteLine("You will start with a credit of 20,00 EUR\n");
+            Console.WriteLine("- If you win 1 line, you double your invested wager");
+            Console.WriteLine("- If you win 2 lines, you quadruple your invested wager");
+            Console.WriteLine("- If you win 3 Lines or more, you increase tenfold your invested wager\n");
+            Console.WriteLine("You will start with a credit of 100,00 EUR\n");
         }
 
         public static int HowMuchLines()
@@ -128,6 +127,22 @@ namespace SlotMachine
             }
             Console.WriteLine("\n");
             return lineVariantList;
+        }
+        public static void ShowWagerCredit(int wagerCredit)
+        {
+            if (wagerCredit < 1)
+            {
+                Console.WriteLine("Sry, with this wager you didn't found a winning line");
+            }
+            else
+            {
+                Console.WriteLine($"\nCongratulation, you won {wagerCredit} EUR");
+            }
+        }
+
+        public static void ShowTotalCredit (int totalCredit)
+        {
+            Console.WriteLine($"Your total Credit is {totalCredit} EUR\n");
         }
     }
 }

@@ -30,7 +30,7 @@ namespace SlotMachine
         }
         public static List<int> WagerResult(List<int>lineVariantList, int linesToPlay, int[,] slotNumbers)
         {
-            List<int> wagerCredit = new List<int>();
+            List<int> wagerResult = new List<int>();
 
             while (linesToPlay > 0)
             {
@@ -42,7 +42,7 @@ namespace SlotMachine
 
                     if (slotNumbers[horizontalLine, 1].Equals(slotNumbers[horizontalLine, 0]) && slotNumbers[horizontalLine, 2].Equals(slotNumbers[horizontalLine, 0]))
                     {
-                        wagerCredit.Add(1);
+                        wagerResult.Add(1);
                     }
                     variantListPos++;
                     horizontalLine++;
@@ -54,7 +54,7 @@ namespace SlotMachine
 
                     if (slotNumbers[1, vertikalLine].Equals(slotNumbers[0, vertikalLine]) && slotNumbers[2, vertikalLine].Equals(slotNumbers[0, vertikalLine]))
                     {
-                        wagerCredit.Add(1);
+                        wagerResult.Add(1);
                     }
                     variantListPos++;
                     vertikalLine++;
@@ -67,7 +67,7 @@ namespace SlotMachine
                     
                     if (slotNumbers[diagonalLine2, diagonalLine1].Equals(slotNumbers[1, 1]) && slotNumbers[diagonalLine2, diagonalLine1+2].Equals(slotNumbers[1, 1]))
                     {
-                        wagerCredit.Add(1);
+                        wagerResult.Add(1);
                     }
                    
                     variantListPos++;
@@ -75,6 +75,25 @@ namespace SlotMachine
                     diagonalLine2 = diagonalLine2 - 2;
                 }
                 linesToPlay--;
+            }
+            return wagerResult;
+        }
+
+        public static int wagerCredit (List<int>wagerResult, int linesToPlay)
+        {
+            int wagerCredit = 0;
+
+            if (wagerResult.Sum() == 1)
+            {
+                wagerCredit = linesToPlay * 2;
+            }
+            if (wagerResult.Sum() == 2)
+            {
+                wagerCredit = linesToPlay * 4;
+            }
+            if (wagerResult.Sum() >= 3)
+            {
+                wagerCredit = linesToPlay * 10;
             }
             return wagerCredit;
         }
