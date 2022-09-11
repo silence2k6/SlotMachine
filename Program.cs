@@ -17,10 +17,9 @@ namespace SlotMachine
 
                 List<int> lineVariantList = new List<int>(InterfaceMethods.WhichLines(linesToPlay));
                
-                InterfaceMethods.ShowRandomSlotNumbers();
+                int [,] slotNumbers = InterfaceMethods.ShowRandomSlotNumbers();
 
-                //break;
-
+                int wagerCredit = LogicMethods.WagerResult(lineVariantList, linesToPlay, slotNumbers);
 
                 //Geasmtguthaben zusammenrechnen und anzeigen
                 //List<int> totalCredit = new List<int>();

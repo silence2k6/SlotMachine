@@ -9,7 +9,7 @@ namespace SlotMachine
 {
     public static class InterfaceMethods
     {
-        public static void ShowRandomSlotNumbers()
+        public static int[,] ShowRandomSlotNumbers()
         {
             int [,] slotNumbers = LogicMethods.GetRandomSlotNumbers();
 
@@ -27,6 +27,7 @@ namespace SlotMachine
                 Console.WriteLine();
                 line++;
             }
+            return slotNumbers;
         }
 
         public static void GameIntro()
@@ -58,14 +59,14 @@ namespace SlotMachine
                     validInput = false;
                     Console.WriteLine("You have to play at least 1 line and maximum 8 lines!");                   
                 }
-                Console.WriteLine($"Your total costs for this wager will be {chooseLinesToPlay}EUR\n");
+                //Console.WriteLine($"Your total costs for this wager will be {chooseLinesToPlay}EUR\n");
             }
             return chooseLinesToPlay;
         }
 
         public static List<int> WhichLines(int linesToPlay)
         {
-            Console.Write($"How you want to play your lines?\npress (1)horizontal (2)vertikal (3)diagonal\n");
+            Console.Write($"\nHow you want to play your lines?\npress (1)horizontal (2)vertikal (3)diagonal\n");
             List<int> lineVariantList = new List<int>();
             int chooseLineVariant = 0;
             int maxLines = 0;
