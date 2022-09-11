@@ -13,19 +13,19 @@ namespace SlotMachine
         {
             int [,] slotNumbers = LogicMethods.GetRandomSlotNumbers();
 
-            int i = 0;
+            int line = 0;
 
-            while (i < slotNumbers.GetLength(0))
+            while (line < slotNumbers.GetLength(0))
             {
-                int j = 0;
+                int row = 0;
 
-                while (j < slotNumbers.GetLength(1))
+                while (row < slotNumbers.GetLength(1))
                 {
-                    Console.Write(slotNumbers[i, j] + " ");
-                    j++;
+                    Console.Write(slotNumbers[line, row] + " ");
+                    row++;
                 }
                 Console.WriteLine();
-                i++;
+                line++;
             }
         }
 
@@ -38,7 +38,7 @@ namespace SlotMachine
             Console.WriteLine("- For each Line you want to play, you have to pay 1,00 EUR");
             Console.WriteLine("- If you win 1 line, you will get 1,00 EUR");
             Console.WriteLine("- If you win 2 lines, you will get 3,00 EUR");
-            Console.WriteLine("- If you win 3 Lines, you will get 5,00 EUR\n");
+            Console.WriteLine("- If you win 3 Lines, you will get 5,00 EUR");
             Console.WriteLine("- If you win more than 3 Lines, you will double your invested wager\n");
             Console.WriteLine("You will start with a credit of 20,00 EUR\n");
         }
@@ -52,8 +52,6 @@ namespace SlotMachine
             {
                 Console.Write("How much lines you want to play (max 8)?:\t");
                 validInput = int.TryParse(Console.ReadLine(), out chooseLinesToPlay);
-
-                //WENN VARIANTE MEHR ALS 3 MAL GESPIELT WERDEN SOLL (DIAGONAL MAX. 2) = GEHT NICHT!!!
 
                 if (chooseLinesToPlay < 1 || chooseLinesToPlay > 8)
                 {
@@ -70,26 +68,62 @@ namespace SlotMachine
             Console.Write($"How you want to play your lines?\npress (1)horizontal (2)vertikal (3)diagonal\n");
             List<int> lineVariantList = new List<int>();
             int chooseLineVariant = 0;
+            int maxLines = 0;
+            int maxRows = 0;
+            int maxDiagonals = 0;
 
             while (chooseLineVariant < linesToPlay)
             {
-                Console.Write($"\n{chooseLineVariant+1}.line:\t");
-                int choosenLineVariant = Convert.ToInt32(Console.ReadLine());
-                lineVariantList.Add(choosenLineVariant);
+                bool validInput = true;
+                int choosenVariant = 0;
+                
+                while (validInput == true)
+                {
+                    Console.Write($"\n{chooseLineVariant + 1}.line:\t");
+                    validInput = int.TryParse(Console.ReadLine(), out choosenVariant);
+                    lineVariantList.Add(choosenVariant);
 
-                if (choosenLineVariant == 1)
-                {
-                    Console.Write("horizontal");
+                    if (choosenVariant == 1)
+                    {
+                        Console.Write("horizontal");
+                        maxLines++;
+                    }
+                    if (choosenVariant == 2)
+                    {
+                        Console.Write("vertikal");
+                        maxRows++;
+                    }
+                    if (choosenVariant == 3)
+                    {
+                        Console.Write("diagonal");
+                        maxDiagonals++;
+                    }
+                    if (choosenVariant <= 0 || choosenVariant > 3)
+                    {
+                        Console.WriteLine("Only the line variants (1)horizontal (2)vertikal (3)diagonal are accepted");
+                        chooseLineVariant--;
+                    }
+                    if (maxLines >= 4)
+                    {
+                        Console.WriteLine("Sry, you still gave your wager for all 3 horizontal lines. Choose another variant for this line.");
+                        chooseLineVariant--;
+                        maxLines--;
+                    }
+                    if (maxRows >= 4)
+                    {
+                        Console.WriteLine("Sry, you still gave your wager for all 3 vertical lines. Choose another variant for this line.");
+                        chooseLineVariant--;
+                        maxRows--;
+                    }
+                    if (maxDiagonals >= 3)
+                    {
+                        Console.WriteLine("Sry, you still gave your wager for all 2 diagonal lines. Choose another variant for this line.");
+                        chooseLineVariant--;
+                        maxDiagonals--;
+                    }
+                    chooseLineVariant++;
+                    break;
                 }
-                if (choosenLineVariant == 2)
-                {
-                    Console.Write("vertikal");
-                }
-                if (choosenLineVariant == 3)
-                {
-                    Console.Write("diagonal"); 
-                }
-                chooseLineVariant++;
             }
             Console.WriteLine("\n");
             return lineVariantList;

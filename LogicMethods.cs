@@ -28,7 +28,6 @@ namespace SlotMachine
             }
             return slotNumbers;
         }
-
         public static List<int> WagerResult(List<int>lineVariantList, int linesToPlay, int[,] slotNumbers)
         {
             List<int> wagerCredit = new List<int>();

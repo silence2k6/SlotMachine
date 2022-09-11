@@ -16,13 +16,15 @@ namespace SlotMachine
                 int linesToPlay = InterfaceMethods.HowMuchLines();
 
                 List<int> lineVariantList = new List<int>(InterfaceMethods.WhichLines(linesToPlay));
-                break;
+               
+                InterfaceMethods.ShowRandomSlotNumbers();
 
-                //InterfaceMethods.ShowRandomSlotNumbers();
+                //break;
+
 
                 //Geasmtguthaben zusammenrechnen und anzeigen
-                List<int> totalCredit = new List<int>();
-                totalCredit.Add(20);
+                //List<int> totalCredit = new List<int>();
+                //totalCredit.Add(20);
             }
         }
     }
