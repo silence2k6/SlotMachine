@@ -1,7 +1,4 @@
-﻿using System.Security.Cryptography;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace SlotMachine
+﻿namespace SlotMachine
 {
     internal class Program
     {
@@ -20,15 +17,19 @@ namespace SlotMachine
 
                 List<int> lineVariantList = new List<int>(InterfaceMethods.WhichLines(linesToPlay));
                
-                int [,] slotNumbers = InterfaceMethods.ShowRandomSlotNumbers();
+                int [,] slotNumbers = InterfaceMethods.ShowRandomSlotNumbers(LogicMethods.CreateRandomSlotNumbers());
 
-                List<int> wagerResultList = LogicMethods.WagerResult(lineVariantList, linesToPlay, slotNumbers);
+                List<int> wagerResultList = new List<int>(LogicMethods.WagerResult(lineVariantList, linesToPlay, slotNumbers));
                 int wagerCredit = wagerResultList.Sum();
 
-                InterfaceMethods.ShowWagerCredit(wagerCredit);
+                InterfaceMethods.ShowWagerResult(wagerCredit);
 
                 int totalCredit = wagerCredit + totalCreditList.Sum();
 
+                if (totalCredit == 0)
+                {
+                    InterfaceMethods.OutOfCreditMessage(totalCredit);
+                }
                 InterfaceMethods.ShowTotalCredit(totalCredit);
             }
         }

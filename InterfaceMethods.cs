@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SlotMachine
+﻿namespace SlotMachine
 {
     public static class InterfaceMethods
     {
-        public static int[,] ShowRandomSlotNumbers()
+        public static int[,] ShowRandomSlotNumbers(int[,] slotNumbers)
         {
-            int [,] slotNumbers = LogicMethods.GetRandomSlotNumbers();
-
             int line = 0;
 
             while (line < slotNumbers.GetLength(0))
@@ -58,7 +49,6 @@ namespace SlotMachine
                     validInput = false;
                     Console.WriteLine("You have to play at least 1 line and maximum 8 lines!");                   
                 }
-                //Console.WriteLine($"Your total costs for this wager will be {chooseLinesToPlay}EUR\n");
             }
             return chooseLinesToPlay;
         }
@@ -71,11 +61,11 @@ namespace SlotMachine
             int maxLines = 0;
             int maxRows = 0;
             int maxDiagonals = 0;
+            int choosenVariant = 0;
 
             while (chooseLineVariant < linesToPlay)
             {
                 bool validInput = true;
-                int choosenVariant = 0;
                 
                 while (validInput == true)
                 {
@@ -128,7 +118,7 @@ namespace SlotMachine
             Console.WriteLine("\n");
             return lineVariantList;
         }
-        public static void ShowWagerCredit(int wagerCredit)
+        public static void ShowWagerResult(int wagerCredit)
         {
             if (wagerCredit < 1)
             {
@@ -139,10 +129,22 @@ namespace SlotMachine
                 Console.WriteLine($"\nCongratulation, you won {wagerCredit} EUR");
             }
         }
-
         public static void ShowTotalCredit (int totalCredit)
         {
             Console.WriteLine($"Your total Credit is {totalCredit} EUR\n");
+        }
+
+        public static void OutOfCreditMessage (int totalCredit)
+        {
+            Console.Write("Sry, you are out of credit!!!\n If you wan't to play again press 'Y'\t");
+            string playAgain = Console.ReadLine().ToUpper();
+
+            if (playAgain != "Y")
+            {
+                Environment.Exit(0);
+                Console.WriteLine("Thanks for playing");
+            }
+            totalCredit = 100;           
         }
     }
 }
