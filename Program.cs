@@ -15,7 +15,14 @@
                 int linesToPlay = InterfaceMethods.HowMuchLines();
                 totalCreditList.Add(-linesToPlay);
 
-                List<int> lineVariantList = new List<int>(InterfaceMethods.WhichLines(linesToPlay));
+                if (totalCreditList.Sum() < 0)
+                {
+                    InterfaceMethods.BudgetForWagerToLow();
+                    totalCreditList.Add(linesToPlay);
+                    continue;
+                }
+
+                List<int> lineVariantList = InterfaceMethods.WhichLines(linesToPlay);
                
                 int [,] slotNumbers = InterfaceMethods.ShowRandomSlotNumbers(LogicMethods.CreateRandomSlotNumbers());
 
@@ -30,6 +37,7 @@
                 {
                     InterfaceMethods.OutOfCreditMessage(totalCredit);
                 }
+                totalCreditList.Add(100);
                 InterfaceMethods.ShowTotalCredit(totalCredit);
             }
         }

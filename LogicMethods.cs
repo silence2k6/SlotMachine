@@ -15,7 +15,7 @@
 
                 while (j < slotNumbers.GetLength(1))
                 {
-                    slotNumbers[i, j] = randomNumber.Next(1, 10);
+                    slotNumbers[i, j] = randomNumber.Next(1, 4);
                     j++;
                 }
                 i++;
@@ -39,7 +39,6 @@
                     {
                         wagerResult.Add(1);
                     }
-                    variantListPos++;
                     horizontalLine++;
                 }
 
@@ -49,7 +48,6 @@
                     {
                         wagerResult.Add(1);
                     }
-                    variantListPos++;
                     vertikalLine++;
                 }
 
@@ -59,11 +57,10 @@
                     {
                         wagerResult.Add(1);
                     }
-                   
-                    variantListPos++;
                     diagonalLine1 = 2;
                     diagonalLine2 = 0;
                 }
+                variantListPos++;
                 linesToPlay--;
             }
             return wagerResult;
