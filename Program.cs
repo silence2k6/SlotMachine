@@ -26,8 +26,7 @@
                
                 int [,] slotNumbers = InterfaceMethods.ShowRandomSlotNumbers(LogicMethods.CreateRandomSlotNumbers());
 
-                List<int> wagerResultList = new List<int>(LogicMethods.WagerResult(lineVariantList, linesToPlay, slotNumbers));
-                int wagerCredit = wagerResultList.Sum();
+                int wagerCredit = LogicMethods.wagerCredit(LogicMethods.WagerResult(lineVariantList, linesToPlay, slotNumbers), linesToPlay);
 
                 InterfaceMethods.ShowWagerResult(wagerCredit);
 
@@ -37,7 +36,6 @@
                 {
                     InterfaceMethods.OutOfCreditMessage(totalCredit);
                 }
-                totalCreditList.Add(100);
                 InterfaceMethods.ShowTotalCredit(totalCredit);
             }
         }

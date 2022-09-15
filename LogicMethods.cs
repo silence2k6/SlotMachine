@@ -15,7 +15,7 @@
 
                 while (j < slotNumbers.GetLength(1))
                 {
-                    slotNumbers[i, j] = randomNumber.Next(1, 4);
+                    slotNumbers[i, j] = randomNumber.Next(1, 5);
                     j++;
                 }
                 i++;
@@ -28,8 +28,10 @@
             int variantListPos = 0;
             int vertikalLine = 0;
             int horizontalLine = 0;
-            int diagonalLine1 = 0;
-            int diagonalLine2 = 2;
+            int diagonalPos11 = 0;
+            int diagonalPos12 = 0;
+            int diagonalPos21 = 2;
+            int diagonalPos22 = 0;
 
             while (linesToPlay > 0)
             {
@@ -53,12 +55,12 @@
 
                 if (lineVariantList[variantListPos] == 3)
                 {
-                    if (slotNumbers[diagonalLine2, diagonalLine1].Equals(slotNumbers[1, 1]) && slotNumbers[diagonalLine2, diagonalLine1+2].Equals(slotNumbers[1, 1]))
+                    if (slotNumbers[diagonalPos11, diagonalPos12].Equals(slotNumbers[1, 1]) && slotNumbers[diagonalPos21, diagonalPos22].Equals(slotNumbers[1, 1]))
                     {
                         wagerResult.Add(1);
+                        diagonalPos11 = 2;
+                        diagonalPos21 = 0;
                     }
-                    diagonalLine1 = 2;
-                    diagonalLine2 = 0;
                 }
                 variantListPos++;
                 linesToPlay--;

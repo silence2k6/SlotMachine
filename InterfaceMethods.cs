@@ -144,6 +144,7 @@
             else
             {
                 Console.WriteLine($"\nCongratulation, you won {wagerCredit} EUR!!!\n");
+                InterfaceMethods.KeepPlaying();
             }
         }
         public static void ShowTotalCredit (int totalCredit)
@@ -158,9 +159,21 @@
 
             if (playAgain != "Y")
             {
-                Environment.Exit(0);
                 Console.WriteLine("Thanks for playing");
+                Environment.Exit(0);               
             }           
+        }
+
+        public static void KeepPlaying()
+        {
+            Console.Write("If you want to play one more round press 'Y'\t");
+            string playAgain = Console.ReadLine().ToUpper();
+
+            if (playAgain != "Y")
+            {               
+                Console.WriteLine("Thanks for playing");
+                Environment.Exit(0);
+            }
         }
 
         public static void BudgetForWagerToLow ()
