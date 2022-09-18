@@ -1,4 +1,6 @@
-﻿namespace SlotMachine
+﻿using System.Xml.Schema;
+
+namespace SlotMachine
 {
     internal class Program
     {
@@ -7,30 +9,33 @@
             InterfaceMethods.GameIntro();
 
             bool playAgain = true;
-            List<int> totalCreditList = new List<int>();
-            totalCreditList.Add(100);
+            int totalCredit = 8;
 
             while (playAgain == true)
             {
                 int linesToPlay = InterfaceMethods.HowMuchLines();
-                totalCreditList.Add(-linesToPlay);
+                totalCredit = totalCredit - linesToPlay;
 
-                if (totalCreditList.Sum() < 0)
+                if (totalCredit < 0)
                 {
                     InterfaceMethods.BudgetForWagerToLow();
-                    totalCreditList.Add(linesToPlay);
+                    totalCredit = totalCredit + linesToPlay;
                     continue;
                 }
 
                 List<int> lineVariantList = InterfaceMethods.WhichLines(linesToPlay);
-               
-                int [,] slotNumbers = InterfaceMethods.ShowRandomSlotNumbers(LogicMethods.CreateRandomSlotNumbers());
 
-                int wagerCredit = LogicMethods.wagerCredit(LogicMethods.WagerResult(lineVariantList, linesToPlay, slotNumbers), linesToPlay);
+                int[,] getSlotNumbers = LogicMethods.CreateRandomSlotNumbers();
+
+                InterfaceMethods.PrintSlotNumbers(getSlotNumbers);
+
+                int getWagerResult = LogicMethods.WagerResult(lineVariantList, linesToPlay, getSlotNumbers);
+
+                int wagerCredit = LogicMethods.WagerCredit(getWagerResult, linesToPlay);
 
                 InterfaceMethods.ShowWagerResult(wagerCredit);
 
-                int totalCredit = wagerCredit + totalCreditList.Sum();
+                totalCredit = totalCredit + wagerCredit;
 
                 if (totalCredit == 0)
                 {

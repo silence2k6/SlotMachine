@@ -2,7 +2,7 @@
 {
     public static class InterfaceMethods
     {
-        public static int[,] ShowRandomSlotNumbers(int[,] slotNumbers)
+        public static void PrintSlotNumbers(int[,] slotNumbers)
         {
             int line = 0;
 
@@ -18,9 +18,7 @@
                 Console.WriteLine();
                 line++;
             }
-            return slotNumbers;
         }
-
         public static void GameIntro()
         {
             Console.WriteLine("     ***Welcome to SlotMachine***     \n");
