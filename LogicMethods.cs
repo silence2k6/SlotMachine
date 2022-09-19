@@ -2,6 +2,10 @@
 {
     public static class LogicMethods
     {
+        /// <summary>
+        /// Creats an 3x3 array with random numbers
+        /// </summary>
+        /// <returns>created array with value</returns>
         public static int[,] CreateRandomSlotNumbers()
         {
             int[,] slotNumbers = new int[3, 3];
@@ -23,22 +27,22 @@
             return slotNumbers;
         }
 
-        //public enum WagerVariants
-        //{
-        //    Line,
-        //    Row,
-        //    Diagonal
-        //}
-
-        public static int WagerResult(List<int>lineVariantList, int linesToPlay, int[,] slotNumbers)
+        /// <summary>
+        /// checks if array integers in lines, rows or diagonals are equal
+        /// </summary>
+        /// <param name="lineVariantList">archiv where art of verification are stored</param>
+        /// <param name="slotNumbers">archiv where grid integers from this wager are stored in</param>
+        /// <returns>sum of all found equal lines, rows and diagonals of this wager</returns>
+        public static int WagerResult(List<int>lineVariantList, int[,] slotNumbers)
         {
+            int checkingWager = lineVariantList.Count;
             int wagerResult = 0;
             int variantListPos = 0;
             int vertikalLine = 0;
             int horizontalLine = 0;
             int diagonalLine = 0;
             
-            while (linesToPlay > 0)
+            while (checkingWager > 0)
             {
                 if (lineVariantList[variantListPos] == 1)
                 {
@@ -77,11 +81,16 @@
                     }
                 }
                 variantListPos++;
-                linesToPlay--;
+                checkingWager--;
             }
             return wagerResult;
         }
-
+        /// <summary>
+        /// calculates the profit of an wager
+        /// </summary>
+        /// <param name="wagerResult">sum of all found equal lines, rows and diagonals with this wager</param>
+        /// <param name="linesToPlay">archiv how much lines, rows an diagonals the user want to play in this wager</param>
+        /// <returns>total profit of this wager</returns>
         public static int WagerCredit (int wagerResult, int linesToPlay)
         {
             int wagerCredit = 0;

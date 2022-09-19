@@ -29,7 +29,7 @@ namespace SlotMachine
 
                 InterfaceMethods.PrintSlotNumbers(getSlotNumbers);
 
-                int getWagerResult = LogicMethods.WagerResult(lineVariantList, linesToPlay, getSlotNumbers);
+                int getWagerResult = LogicMethods.WagerResult(lineVariantList, getSlotNumbers);
 
                 int wagerCredit = LogicMethods.WagerCredit(getWagerResult, linesToPlay);
 

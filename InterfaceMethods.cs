@@ -2,6 +2,10 @@
 {
     public static class InterfaceMethods
     {
+        /// <summary>
+        /// prints generated grid on console
+        /// </summary>
+        /// <param name="slotNumbers">archiv where grid integers from this wager are stored in</param>
         public static void PrintSlotNumbers(int[,] slotNumbers)
         {
             int line = 0;
@@ -19,6 +23,9 @@
                 line++;
             }
         }
+        /// <summary>
+        /// Game Intro
+        /// </summary>
         public static void GameIntro()
         {
             Console.WriteLine("     ***Welcome to SlotMachine***     \n");
@@ -32,6 +39,10 @@
             Console.WriteLine("You will start with a credit of 100,00 EUR\n");
         }
 
+        /// <summary>
+        /// asks user how much lines he wants to play
+        /// </summary>
+        /// <returns>number of lines which the user wants to play</returns>
         public static int HowMuchLines()
         {
             int chooseLinesToPlay = 0;
@@ -50,7 +61,19 @@
             }
             return chooseLinesToPlay;
         }
+        public enum WagerVariant
+        {
+            Line = 1,
+            Row,
+            Diagonal
+        }
 
+
+        /// <summary>
+        /// asks user in which variant he/she wants to play his/her lines, rows and diagonals
+        /// </summary>
+        /// <param name="linesToPlay">number of lines which the user wants to play</param>
+        /// <returns>List in which all variants to be played are stored in</returns>
         public static List<int> WhichLines(int linesToPlay)
         {
             Console.Write($"\nHow you want to play your lines?\npress (1)horizontal (2)vertikal (3)diagonal\n");
@@ -90,6 +113,7 @@
                         {
                             Console.Write("horizontal");
                             lineVariantList.Add(choosenVariant);
+                            //lineVariantList.Add(WagerVariant.Line);
                         }
                     }
 
@@ -133,6 +157,11 @@
             Console.WriteLine("\n");
             return lineVariantList;
         }
+
+        /// <summary>
+        /// prints profit of an played wager on console
+        /// </summary>
+        /// <param name="wagerCredit">calcualated profit of last wager</param>
         public static void ShowWagerResult(int wagerCredit)
         {
             if (wagerCredit < 1)
@@ -144,17 +173,30 @@
                 Console.WriteLine($"\nCongratulation, you won {wagerCredit} EUR!!!\n");
             }
         }
+
+        /// <summary>
+        /// prints total provit on console
+        /// </summary>
+        /// <param name="totalCredit">sum of total profit of all played wagers</param>
         public static void ShowTotalCredit (int totalCredit)
         {
             Console.WriteLine($"Your total Credit is {totalCredit} EUR\n");
         }
 
+        /// <summary>
+        /// prints message on console that user is out of credit
+        /// </summary>
+        /// <param name="totalCredit">sum of total profit of all played wagers</param>
         public static void OutOfCreditMessage (int totalCredit)
         {
             Console.Write("Sry, you are out of credit!!!\n");
             InterfaceMethods.KeepPlaying();
         }
 
+        /// <summary>
+        /// asks user to play again
+        /// </summary>
+        /// <returns>true: if user wants to play again; false: if user doesn*t</returns>
         public static bool KeepPlaying()
         {
             bool playAgain = true;
@@ -169,6 +211,10 @@
             Console.WriteLine();
             return playAgain;
         }
+
+        /// <summary>
+        /// prints message on console that there isn't enough budget to play this number of lines
+        /// </summary>
         public static void BudgetForWagerToLow ()
         {
             Console.WriteLine("Sry, you haven't enought budget to play this number of lines");
