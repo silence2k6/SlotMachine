@@ -22,17 +22,22 @@
             }
             return slotNumbers;
         }
+
+        //public enum WagerVariants
+        //{
+        //    Line,
+        //    Row,
+        //    Diagonal
+        //}
+
         public static int WagerResult(List<int>lineVariantList, int linesToPlay, int[,] slotNumbers)
         {
             int wagerResult = 0;
             int variantListPos = 0;
             int vertikalLine = 0;
             int horizontalLine = 0;
-            int diagonalPos11 = 0;
-            int diagonalPos12 = 0;
-            int diagonalPos21 = 2;
-            int diagonalPos22 = 0;
-
+            int diagonalLine = 0;
+            
             while (linesToPlay > 0)
             {
                 if (lineVariantList[variantListPos] == 1)
@@ -55,11 +60,20 @@
 
                 if (lineVariantList[variantListPos] == 3)
                 {
-                    if (slotNumbers[diagonalPos11, diagonalPos12].Equals(slotNumbers[1, 1]) && slotNumbers[diagonalPos21, diagonalPos22].Equals(slotNumbers[1, 1]))
+                    if (diagonalLine == 0)
                     {
-                        wagerResult++;
-                        diagonalPos11 = 2;
-                        diagonalPos21 = 0;
+                        if (slotNumbers[0,0].Equals(slotNumbers[1, 1]) && slotNumbers[2,2].Equals(slotNumbers[1,1]))
+                        {
+                            wagerResult++;
+                        }
+                        else
+                        {
+                            if (slotNumbers[0, 2].Equals(slotNumbers[1,1]) && slotNumbers[2,0].Equals(slotNumbers[1,1]))
+                            {
+                                wagerResult++;
+                            }
+                        }
+                        diagonalLine++;
                     }
                 }
                 variantListPos++;

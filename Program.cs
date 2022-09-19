@@ -9,7 +9,7 @@ namespace SlotMachine
             InterfaceMethods.GameIntro();
 
             bool playAgain = true;
-            int totalCredit = 8;
+            int totalCredit = 100;
 
             while (playAgain == true)
             {
@@ -42,7 +42,10 @@ namespace SlotMachine
                     InterfaceMethods.OutOfCreditMessage(totalCredit);
                 }
                 InterfaceMethods.ShowTotalCredit(totalCredit);
+
+                playAgain = InterfaceMethods.KeepPlaying();
             }
+            Console.WriteLine("\nThanks for playing");
         }
     }
 }

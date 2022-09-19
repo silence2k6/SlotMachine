@@ -142,7 +142,6 @@
             else
             {
                 Console.WriteLine($"\nCongratulation, you won {wagerCredit} EUR!!!\n");
-                InterfaceMethods.KeepPlaying();
             }
         }
         public static void ShowTotalCredit (int totalCredit)
@@ -152,28 +151,24 @@
 
         public static void OutOfCreditMessage (int totalCredit)
         {
-            Console.Write("Sry, you are out of credit!!!\nIf you wan't to play again press 'Y'\t");
-            string playAgain = Console.ReadLine().ToUpper();
-
-            if (playAgain != "Y")
-            {
-                Console.WriteLine("Thanks for playing");
-                Environment.Exit(0);               
-            }           
+            Console.Write("Sry, you are out of credit!!!\n");
+            InterfaceMethods.KeepPlaying();
         }
 
-        public static void KeepPlaying()
+        public static bool KeepPlaying()
         {
+            bool playAgain = true;
+            
             Console.Write("If you want to play one more round press 'Y'\t");
-            string playAgain = Console.ReadLine().ToUpper();
+            string userInput = Console.ReadLine().ToUpper();
 
-            if (playAgain != "Y")
-            {               
-                Console.WriteLine("Thanks for playing");
-                Environment.Exit(0);
+            if (userInput != "Y")
+            {
+                playAgain = false;
             }
+            Console.WriteLine();
+            return playAgain;
         }
-
         public static void BudgetForWagerToLow ()
         {
             Console.WriteLine("Sry, you haven't enought budget to play this number of lines");
