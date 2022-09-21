@@ -33,18 +33,19 @@
         /// <param name="lineVariantList">archiv where art of verification are stored</param>
         /// <param name="slotNumbers">archiv where grid integers from this wager are stored in</param>
         /// <returns>sum of all found equal lines, rows and diagonals of this wager</returns>
-        public static int WagerResult(List<int>lineVariantList, int[,] slotNumbers)
+        public static int WagerResult(List<WagerVariant>lineVariantList, int[,] slotNumbers)
         {
-            int checkingWager = lineVariantList.Count;
             int wagerResult = 0;
-            int variantListPos = 0;
-            int vertikalLine = 0;
+
             int horizontalLine = 0;
+            int vertikalLine = 0;
             int diagonalLine = 0;
-            
-            while (checkingWager > 0)
+
+            int variantListPos = 0;
+
+            while (variantListPos < lineVariantList.Count)
             {
-                if (lineVariantList[variantListPos] == 1)
+                if (lineVariantList[variantListPos] == WagerVariant.Row)
                 {
                     if (slotNumbers[horizontalLine, 1].Equals(slotNumbers[horizontalLine, 0]) && slotNumbers[horizontalLine, 2].Equals(slotNumbers[horizontalLine, 0]))
                     {
@@ -52,8 +53,7 @@
                     }
                     horizontalLine++;
                 }
-
-                if (lineVariantList[variantListPos] == 2)
+                else if (lineVariantList[variantListPos] == WagerVariant.Col)
                 {
                     if (slotNumbers[1, vertikalLine].Equals(slotNumbers[0, vertikalLine]) && slotNumbers[2, vertikalLine].Equals(slotNumbers[0, vertikalLine]))
                     {
@@ -61,27 +61,25 @@
                     }
                     vertikalLine++;
                 }
-
-                if (lineVariantList[variantListPos] == 3)
+                else if (lineVariantList[variantListPos] == WagerVariant.Diagonal)
                 {
                     if (diagonalLine == 0)
                     {
-                        if (slotNumbers[0,0].Equals(slotNumbers[1, 1]) && slotNumbers[2,2].Equals(slotNumbers[1,1]))
+                        if (slotNumbers[0, 0].Equals(slotNumbers[1, 1]) && slotNumbers[2, 2].Equals(slotNumbers[1, 1]))
                         {
                             wagerResult++;
                         }
-                        else
-                        {
-                            if (slotNumbers[0, 2].Equals(slotNumbers[1,1]) && slotNumbers[2,0].Equals(slotNumbers[1,1]))
-                            {
-                                wagerResult++;
-                            }
-                        }
-                        diagonalLine++;
                     }
+                    else
+                    {
+                        if (slotNumbers[0, 2].Equals(slotNumbers[1, 1]) && slotNumbers[2, 0].Equals(slotNumbers[1, 1]))
+                        {
+                            wagerResult++;
+                        }
+                    }
+                    diagonalLine++;
                 }
                 variantListPos++;
-                checkingWager--;
             }
             return wagerResult;
         }
@@ -93,21 +91,19 @@
         /// <returns>total profit of this wager</returns>
         public static int WagerCredit (int wagerResult, int linesToPlay)
         {
-            int wagerCredit = 0;
-
             if (wagerResult == 1)
             {
-                wagerCredit = linesToPlay * 2;
+                return linesToPlay * 2;
             }
             if (wagerResult == 2)
             {
-                wagerCredit = linesToPlay * 4;
+                return linesToPlay * 4;
             }
             if (wagerResult >= 3)
             {
-                wagerCredit = linesToPlay * 10;
+                return linesToPlay * 10;
             }
-            return wagerCredit;
+            return 0;
         }
     }
 }

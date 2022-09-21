@@ -24,7 +24,7 @@
             }
         }
         /// <summary>
-        /// Game Intro
+        /// prints welcome message and game rules on console
         /// </summary>
         public static void GameIntro()
         {
@@ -36,7 +36,7 @@
             Console.WriteLine("- If you win 1 line, you double your invested wager");
             Console.WriteLine("- If you win 2 lines, you quadruple your invested wager");
             Console.WriteLine("- If you win 3 Lines or more, you increase tenfold your invested wager\n");
-            Console.WriteLine("You will start with a credit of 100,00 EUR\n");
+            Console.WriteLine("You will start with a credit of 30,00 EUR\n");
         }
 
         /// <summary>
@@ -61,12 +61,6 @@
             }
             return chooseLinesToPlay;
         }
-        public enum WagerVariant
-        {
-            Line = 1,
-            Row,
-            Diagonal
-        }
 
 
         /// <summary>
@@ -74,84 +68,73 @@
         /// </summary>
         /// <param name="linesToPlay">number of lines which the user wants to play</param>
         /// <returns>List in which all variants to be played are stored in</returns>
-        public static List<int> WhichLines(int linesToPlay)
+        public static List<WagerVariant> WhichLines(int linesToPlay)
         {
             Console.Write($"\nHow you want to play your lines?\npress (1)horizontal (2)vertikal (3)diagonal\n");
-            List<int> lineVariantList = new List<int>();
-            int chooseLineVariant = 0;
-            int maxLines = 0;
-            int maxRows = 0;
-            int maxDiagonals = 0;
-            int choosenVariant = 0;
+            List<WagerVariant> lineVariantList = new List<WagerVariant>();
+            int numRows = 0;
+            int numCols = 0;
+            int numDiagonals = 0;
+            int choosenVariant;
 
-            while (chooseLineVariant < linesToPlay)
+            while (lineVariantList.Count < linesToPlay)
             {
-                bool validInput = true;
-                
-                while (validInput == true)
+                while (true)
                 {
-                    Console.Write($"\n{chooseLineVariant + 1}.line:\t");
-                    validInput = int.TryParse(Console.ReadLine(), out choosenVariant);
-
-                    if (choosenVariant <= 0 || choosenVariant > 3)
+                    Console.Write($"\n{lineVariantList.Count + 1}.line:\t");
+                    bool validInput = int.TryParse(Console.ReadLine(), out choosenVariant);
+                    if (validInput == false)
+                    {
+                        Console.WriteLine("Only numbers are accepted!");
+                    }
+                    else if (choosenVariant <= 0 || choosenVariant > 3)
                     {
                         Console.WriteLine("Only the line variants (1)horizontal (2)vertikal (3)diagonal are accepted");
-                        chooseLineVariant--;
                     }
-
-                    if (choosenVariant == 1)
+                    else
                     {
-                        maxLines++;
-
-                        if (maxLines >= 4)
-                        {
-                            Console.WriteLine("Sry, you still gave your wager for all 3 horizontal lines. Choose another variant for this line.");
-                            chooseLineVariant--;
-                            maxLines--;
-                        }
-                        else
-                        {
-                            Console.Write("horizontal");
-                            lineVariantList.Add(choosenVariant);
-                            //lineVariantList.Add(WagerVariant.Line);
-                        }
+                        break;
                     }
-
-                    if (choosenVariant == 2)
+                }
+       
+                if (choosenVariant == 1)
+                {
+                    if (numRows >= 3)
                     {
-                        maxRows++;
-
-                        if (maxRows >= 4)
-                        {
-                            Console.WriteLine("Sry, you still gave your wager for all 3 vertical lines. Choose another variant for this line.");
-                            chooseLineVariant--;
-                            maxRows--;
-                        }
-                        else
-                        {
-                            Console.Write("vertikal");
-                            lineVariantList.Add(choosenVariant);
-                        }
+                        Console.WriteLine("Sry, you still gave your wager for all 3 horizontal lines. Choose another variant for this line.");
                     }
-
-                    if (choosenVariant == 3)
+                    else
                     {
-                        maxDiagonals++;
-
-                        if (maxDiagonals >= 3)
-                        {
-                            Console.WriteLine("Sry, you still gave your wager for all 2 diagonal lines. Choose another variant for this line.");
-                            chooseLineVariant--;
-                            maxDiagonals--;
-                        }
-                        else
-                        {
-                            Console.Write("diagonal");
-                            lineVariantList.Add(choosenVariant);
-                        }
-                    }                  
-                    chooseLineVariant++;
-                    break;
+                        Console.Write("horizontal");
+                        lineVariantList.Add(WagerVariant.Row);
+                        numRows++;
+                    }
+                }
+                else if (choosenVariant == 2)
+                {
+                    if (numCols >= 3)
+                    {
+                        Console.WriteLine("Sry, you still gave your wager for all 3 vertical lines. Choose another variant for this line.");
+                    }
+                    else
+                    {
+                        Console.Write("vertikal");
+                        lineVariantList.Add(WagerVariant.Col);
+                        numCols++;
+                    }
+                }
+                else if (choosenVariant == 3)
+                {
+                    if (numDiagonals >= 2)
+                    {
+                        Console.WriteLine("Sry, you still gave your wager for all 2 diagonal lines. Choose another variant for this line.");
+                    }
+                    else
+                    {
+                        Console.Write("diagonal");
+                        lineVariantList.Add(WagerVariant.Diagonal);
+                        numDiagonals++;
+                    }
                 }
             }
             Console.WriteLine("\n");
@@ -189,19 +172,20 @@
         /// <param name="totalCredit">sum of total profit of all played wagers</param>
         public static void OutOfCreditMessage (int totalCredit)
         {
-            Console.Write("Sry, you are out of credit!!!\n");
-            InterfaceMethods.KeepPlaying();
+            Console.Write("Sry, you are out of credit!!! (for playing again you restart the game with an new credit)");
         }
 
         /// <summary>
         /// asks user to play again
         /// </summary>
         /// <returns>true: if user wants to play again; false: if user doesn*t</returns>
-        public static bool KeepPlaying()
+        public static bool KeepPlaying(int totalCredit)
         {
             bool playAgain = true;
-            
+
+           
             Console.Write("If you want to play one more round press 'Y'\t");
+
             string userInput = Console.ReadLine().ToUpper();
 
             if (userInput != "Y")
