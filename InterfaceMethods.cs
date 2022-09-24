@@ -71,10 +71,8 @@
         public static List<WagerVariant> WhichLines(int linesToPlay)
         {
             Console.Write($"\nHow you want to play your lines?\npress (1)horizontal (2)vertikal (3)diagonal\n");
+
             List<WagerVariant> lineVariantList = new List<WagerVariant>();
-            int numRows = 0;
-            int numCols = 0;
-            int numDiagonals = 0;
             int choosenVariant;
 
             while (lineVariantList.Count < linesToPlay)
@@ -96,10 +94,19 @@
                         break;
                     }
                 }
-       
-                if (choosenVariant == 1)
+
+                int countVariant = 0;
+                foreach (WagerVariant type in lineVariantList)
                 {
-                    if (numRows >= 3)
+                    if (choosenVariant == (int)type)
+                    {
+                        countVariant++;
+                    }
+                }
+
+                if (choosenVariant.Equals((int)WagerVariant.Row))
+                {
+                    if (countVariant >= 3)
                     {
                         Console.WriteLine("Sry, you still gave your wager for all 3 horizontal lines. Choose another variant for this line.");
                     }
@@ -107,12 +114,11 @@
                     {
                         Console.Write("horizontal");
                         lineVariantList.Add(WagerVariant.Row);
-                        numRows++;
                     }
                 }
-                else if (choosenVariant == 2)
+                else if (choosenVariant.Equals((int)WagerVariant.Col))
                 {
-                    if (numCols >= 3)
+                    if (countVariant >= 3)
                     {
                         Console.WriteLine("Sry, you still gave your wager for all 3 vertical lines. Choose another variant for this line.");
                     }
@@ -120,12 +126,11 @@
                     {
                         Console.Write("vertikal");
                         lineVariantList.Add(WagerVariant.Col);
-                        numCols++;
                     }
                 }
-                else if (choosenVariant == 3)
+                else if (choosenVariant.Equals((int)WagerVariant.Diagonal))
                 {
-                    if (numDiagonals >= 2)
+                    if (countVariant >= 2)
                     {
                         Console.WriteLine("Sry, you still gave your wager for all 2 diagonal lines. Choose another variant for this line.");
                     }
@@ -133,7 +138,6 @@
                     {
                         Console.Write("diagonal");
                         lineVariantList.Add(WagerVariant.Diagonal);
-                        numDiagonals++;
                     }
                 }
             }
