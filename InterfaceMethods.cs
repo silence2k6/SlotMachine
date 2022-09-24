@@ -96,9 +96,10 @@
                         break;
                     }
                 }
-       
+
+                //if (choosenVariant.Equals(Convert.ToInt32(WagerVariant.Row)))
                 if (choosenVariant == 1)
-                {
+                {                  
                     if (numRows >= 3)
                     {
                         Console.WriteLine("Sry, you still gave your wager for all 3 horizontal lines. Choose another variant for this line.");
